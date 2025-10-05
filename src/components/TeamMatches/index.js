@@ -1,8 +1,10 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
+import PieChart from '../PieChart'
 
 import './index.css'
 
@@ -38,8 +40,7 @@ class TeamMatches extends Component {
 
   getRecentMatches = async () => {
     const {match} = this.props
-    const {params} = match
-    const {id} = params
+    const {id} = match.params
 
     const response = await fetch(`${teamMatchesApiUrl}${id}`)
     const fetchedData = await response.json()
@@ -50,7 +51,7 @@ class TeamMatches extends Component {
         this.getFormattedObject(recentMatch),
       ),
     }
-    this.setRecentMatches(formattedData, true)
+    this.setState({recentMatchesData: formattedData, isLoading: false})
   }
 
   renderRecentMatchesList = () => {
@@ -73,8 +74,14 @@ class TeamMatches extends Component {
     return (
       <div className="team-matches-container">
         <img src={teamBannerURL} alt="team banner" className="team-banner" />
+        <PieChart recentMatchesData={recentMatchesData} />
         <LatestMatch latestMatchData={latestMatch} />
         {this.renderRecentMatchesList()}
+        <Link to="/" className="link">
+          <button type="button" className="back-button">
+            Back
+          </button>
+        </Link>
       </div>
     )
   }

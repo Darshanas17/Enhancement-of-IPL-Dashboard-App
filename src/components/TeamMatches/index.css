@@ -71,3 +71,15 @@
     padding-left: 10px;
   }
 }
+.back-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
+  margin-bottom: 30px;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
+}
